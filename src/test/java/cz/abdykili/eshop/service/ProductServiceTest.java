@@ -19,20 +19,20 @@ class ProductServiceTest {
 
     @Test
     void findAll() {
-        //organise
-        Integer supposeSize = 3;
+        //arrange
+        Integer supposedSize = 3;
 
         //act
         List<ProductDto> returnedList = productService.findAll();
 
         //assert
-        assertEquals(supposeSize,returnedList.size());
+        assertEquals(supposedSize,returnedList.size());
 
     }
 
     @Test
     void findProduct() {
-        //organise
+        //arrange
         ProductDto testProduct = new ProductDto();
         testProduct.setId(1L);
 
