@@ -1,4 +1,4 @@
-package cz.abdykili.eshop;
+package cz.abdykili.eshop.model;
 
 public class ProductDto {
 
