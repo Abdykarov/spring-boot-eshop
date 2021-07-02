@@ -1,6 +1,7 @@
 package cz.abdykili.eshop.service;
 
 import cz.abdykili.eshop.model.ProductDto;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Service for getting products
  */
+@Service
 public class ProductService {
 
     private static List<ProductDto> products;
@@ -39,6 +41,11 @@ public class ProductService {
         product3.setDescription("Film about anette");
         product3.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
         product3.setPrice(200L);
+
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+
     }
 
     public List<ProductDto> findAll(){
