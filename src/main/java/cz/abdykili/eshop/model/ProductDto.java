@@ -52,4 +52,8 @@ public class ProductDto {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
