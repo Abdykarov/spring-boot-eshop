@@ -3,16 +3,14 @@ package cz.abdykili.eshop.api;
 
 import cz.abdykili.eshop.model.ProductDto;
 import cz.abdykili.eshop.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/product")
+@CrossOrigin("https://master.d1z6pirlbp1239.amplifyapp.com")
 public class ProductController {
 
     private final ProductService productService;
@@ -31,7 +29,10 @@ public class ProductController {
         return productService.findProduct(id);
     }
 
-
+    @PostMapping
+    public String testPost(){
+        return "this is the post method";
+    }
 
 
 }
