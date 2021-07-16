@@ -29,15 +29,16 @@ public class ProductService {
 
         product2 = new ProductDto();
         product2.setId(1L);
-        product2.setName("Anette");
+        product2.setName("Anette2");
         product2.setDescription("Film about anette");
         product2.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
         product2.setPrice(200L);
 
 
         product3 = new ProductDto();
+
         product3.setId(2L);
-        product3.setName("Anette");
+        product3.setName("Anette3");
         product3.setDescription("Film about anette");
         product3.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
         product3.setPrice(200L);
