@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: ita-2021
+    image: library/postgres:13.1
+    ports:
+      - "3000:3000"
+    environment:
+      - POSTGRES_USER=abdykili
+      - POSTGRES_PASSWORD=281001ilyas
+      - POSTGRES_DB=ita-2021-spring
