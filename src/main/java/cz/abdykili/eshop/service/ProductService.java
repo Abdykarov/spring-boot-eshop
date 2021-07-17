@@ -3,6 +3,7 @@ package cz.abdykili.eshop.service;
 import cz.abdykili.eshop.model.ProductDto;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +26,14 @@ public class ProductService {
         product1.setName("Anette");
         product1.setDescription("Film about anette");
         product1.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product1.setPrice(200L);
+        product1.setPrice(new BigDecimal(200));
 
         product2 = new ProductDto();
         product2.setId(1L);
         product2.setName("Anette2");
         product2.setDescription("Film about anette");
         product2.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product2.setPrice(200L);
+        product2.setPrice(new BigDecimal(200));
 
 
         product3 = new ProductDto();
@@ -41,7 +42,7 @@ public class ProductService {
         product3.setName("Anette3");
         product3.setDescription("Film about anette");
         product3.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product3.setPrice(200L);
+        product3.setPrice(new BigDecimal(200));
 
         products.add(product1);
         products.add(product2);
