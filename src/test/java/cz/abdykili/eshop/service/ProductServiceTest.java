@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest {
 
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @BeforeEach
     void setUp() {
-        productService = new ProductService();
+        productService = new ProductServiceImpl();
     }
 
     @Test

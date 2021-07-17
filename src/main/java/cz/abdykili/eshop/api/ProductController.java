@@ -2,10 +2,9 @@ package cz.abdykili.eshop.api;
 
 
 import cz.abdykili.eshop.model.ProductDto;
-import cz.abdykili.eshop.service.ProductService;
+import cz.abdykili.eshop.service.ProductServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -13,9 +12,9 @@ import java.util.List;
 @CrossOrigin("https://master.d1z6pirlbp1239.amplifyapp.com")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(ProductServiceImpl productService){
         this.productService = productService;
     }
 
