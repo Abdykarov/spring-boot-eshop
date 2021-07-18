@@ -1,63 +1,66 @@
 package cz.abdykili.eshop.service;
 
-import cz.abdykili.eshop.model.ProductDto;
+import cz.abdykili.eshop.domain.Product;
+import cz.abdykili.eshop.payload.ProductRequestDto;
+import cz.abdykili.eshop.payload.ProductResponseDto;
+import cz.abdykili.eshop.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for getting products
  */
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
-    private static List<ProductDto> products;
-    private ProductDto product1;
-    private ProductDto product2;
-    private ProductDto product3;
+    private final ProductRepository productRepository;
 
-    public ProductServiceImpl(){
-        products = new ArrayList<>();
-        //init products
-        product1 = new ProductDto();
-        product1.setId(0L);
-        product1.setName("Anette");
-        product1.setDescription("Film about anette");
-        product1.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product1.setPrice(new BigDecimal(200));
-
-        product2 = new ProductDto();
-        product2.setId(1L);
-        product2.setName("Anette2");
-        product2.setDescription("Film about anette");
-        product2.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product2.setPrice(new BigDecimal(200));
-
-
-        product3 = new ProductDto();
-
-        product3.setId(2L);
-        product3.setName("Anette3");
-        product3.setDescription("Film about anette");
-        product3.setImage("https://www.cinemacity.cz/xmedia-cw/repo/feats/posters/4465S2R-md.jpg");
-        product3.setPrice(new BigDecimal(200));
-
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
-
+    @Override
+    public List<ProductResponseDto> findAll(){
+        return productRepository.findAll().stream()
+                .map(p -> mapToResponse(p))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductDto> findAll(){
-        return products;
+    public ProductResponseDto findProduct(Long id){
+        return productRepository.findProductById(id).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public ProductDto findProduct(Integer id){
-        return products.get(id);
+    public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
+        Product newProduct = new Product()
+                .setDescription(productRequestDto.getDescription())
+                .setImage(productRequestDto.getImage())
+                .setPrice(productRequestDto.getPrice())
+                .setName(productRequestDto.getName())
+                .setStock(productRequestDto.getStock());
+
+        final Product savedProduct = productRepository.save(newProduct);
+
+        final ProductResponseDto productResponseDto = new ProductResponseDto()
+                .setDescription(savedProduct.getDescription())
+                .setId(1L)
+                .setImage(savedProduct.getImage())
+                .setPrice(savedProduct.getPrice())
+                .setStock(savedProduct.getStock())
+                .setName(savedProduct.getName());
+
+        return productResponseDto;
     }
 
+    private ProductResponseDto mapToResponse (Product savedProduct){
+        return new ProductResponseDto()
+                .setDescription(savedProduct.getDescription())
+                .setId(1L)
+                .setImage(savedProduct.getImage())
+                .setPrice(savedProduct.getPrice())
+                .setStock(savedProduct.getStock())
+                .setName(savedProduct.getName());
+    }
 }
