@@ -4,6 +4,7 @@ package cz.abdykili.eshop.api;
 import cz.abdykili.eshop.model.ProductDto;
 import cz.abdykili.eshop.payload.ProductRequestDto;
 import cz.abdykili.eshop.service.ProductServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,12 @@ public class ProductController {
     @PutMapping("{id}")
     public ProductDto updateProduct(@RequestBody ProductRequestDto productRequestDto, @PathVariable("id") Long id){
         return productService.updateProduct(productRequestDto, id);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable("id") Long id){
+        productService.deleteProduct(id);
     }
 
 }

@@ -87,4 +87,12 @@ public class ProductServiceImpl implements ProductService{
 
         return mapToResponse(updatedProduct);
     }
+
+    @Override
+    public void deleteProduct(Long id){
+        final Product product = productRepository.findProductById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
+        productRepository.deleteById(id);
+    }
+
 }
