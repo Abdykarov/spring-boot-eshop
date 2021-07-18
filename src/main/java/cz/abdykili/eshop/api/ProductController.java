@@ -1,8 +1,8 @@
 package cz.abdykili.eshop.api;
 
 
+import cz.abdykili.eshop.model.ProductDto;
 import cz.abdykili.eshop.payload.ProductRequestDto;
-import cz.abdykili.eshop.payload.ProductResponseDto;
 import cz.abdykili.eshop.service.ProductServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,19 +20,23 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> findAll(){
+    public List<ProductDto> findAll(){
         return productService.findAll();
     }
 
     @GetMapping("{id}" )
-    public ProductResponseDto findProductById(@PathVariable("id") Long id){
+    public ProductDto findProductById(@PathVariable("id") Long id){
         return productService.findProduct(id);
     }
 
     @PostMapping
-    public ProductResponseDto saveProduct(@RequestBody ProductRequestDto productRequestDto){
+    public ProductDto saveProduct(@RequestBody ProductRequestDto productRequestDto){
         return productService.saveProduct(productRequestDto);
     }
 
+    @PutMapping("{id}")
+    public ProductDto updateProduct(@RequestBody ProductRequestDto productRequestDto, @PathVariable("id") Long id){
+        return productService.updateProduct(productRequestDto, id);
+    }
 
 }

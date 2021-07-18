@@ -1,14 +1,16 @@
 package cz.abdykili.eshop.service;
 
+import cz.abdykili.eshop.model.ProductDto;
 import cz.abdykili.eshop.payload.ProductRequestDto;
-import cz.abdykili.eshop.payload.ProductResponseDto;
 
 import java.util.List;
 
 public interface ProductService {
-     List<ProductResponseDto> findAll();
+     List<ProductDto> findAll();
 
-     ProductResponseDto findProduct(Long id);
+     ProductDto findProduct(Long id);
 
-     ProductResponseDto saveProduct(ProductRequestDto productRequestDto);
+     ProductDto saveProduct(ProductRequestDto productRequestDto);
+
+     ProductDto updateProduct(ProductRequestDto productRequestDto, Long id);
 }
