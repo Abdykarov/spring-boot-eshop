@@ -57,5 +57,15 @@ class ProductServiceTest {
         //assert
         assertEquals(1, returnProductId);
     }
+
+    @Test
+    public void deleteProduct_TestSizeOfArray(){
+        // TODO Create a deleteMethod test
+    }
+
+    @Test
+    public void updateProduct_TestChangedName(){
+        // TODO Create a updateProudct test
+    }
 }
 
