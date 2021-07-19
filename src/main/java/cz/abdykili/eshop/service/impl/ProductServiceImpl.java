@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service for getting products
+ * Service for working with the products
  */
 @Service
 @RequiredArgsConstructor
@@ -41,49 +41,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
-        Product newProduct = new Product()
-                .setDescription(productRequestDto.getDescription())
-                .setImage(productRequestDto.getImage())
-                .setPrice(productRequestDto.getPrice())
-                .setName(productRequestDto.getName())
-                .setStock(productRequestDto.getStock());
-
+        Product newProduct = mapToEntity(productRequestDto);
         final Product savedProduct = productRepository.save(newProduct);
-
-        final ProductResponseDto productResponseDto = new ProductResponseDto()
-                .setDescription(savedProduct.getDescription())
-                .setId(savedProduct.getId())
-                .setImage(savedProduct.getImage())
-                .setPrice(savedProduct.getPrice())
-                .setStock(savedProduct.getStock())
-                .setName(savedProduct.getName());
-
-        return productResponseDto;
-    }
-
-    private ProductResponseDto mapToResponse (Product savedProduct){
-        return new ProductResponseDto()
-                .setDescription(savedProduct.getDescription())
-                .setId(savedProduct.getId())
-                .setImage(savedProduct.getImage())
-                .setPrice(savedProduct.getPrice())
-                .setStock(savedProduct.getStock())
-                .setName(savedProduct.getName());
+        return mapToResponse(savedProduct);
     }
 
     @Override
     public ProductResponseDto updateProduct(ProductRequestDto productRequestDto, Long id){
         final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
-
-        Product productToSave = new Product()
-                .setId(product.getId())
-                .setDescription(productRequestDto.getDescription())
-                .setImage(productRequestDto.getImage())
-                .setPrice(productRequestDto.getPrice())
-                .setName(productRequestDto.getName())
-                .setStock(productRequestDto.getStock());
-
+        Product productToSave = mapToEntity(productRequestDto)
+                .setId(product.getId());
         final Product updatedProduct = productRepository.save(productToSave);
 
         return mapToResponse(updatedProduct);
@@ -94,6 +62,25 @@ public class ProductServiceImpl implements ProductService {
         final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
         productRepository.deleteById(id);
+    }
+
+    private Product mapToEntity(ProductRequestDto productRequestDto){
+        return new Product()
+                .setDescription(productRequestDto.getDescription())
+                .setImage(productRequestDto.getImage())
+                .setPrice(productRequestDto.getPrice())
+                .setName(productRequestDto.getName())
+                .setStock(productRequestDto.getStock());
+    }
+
+    private ProductResponseDto mapToResponse (Product savedProduct){
+        return new ProductResponseDto()
+                .setDescription(savedProduct.getDescription())
+                .setId(savedProduct.getId())
+                .setImage(savedProduct.getImage())
+                .setPrice(savedProduct.getPrice())
+                .setStock(savedProduct.getStock())
+                .setName(savedProduct.getName());
     }
 
 }
