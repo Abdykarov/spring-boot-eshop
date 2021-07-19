@@ -1,9 +1,10 @@
-package cz.abdykili.eshop.service;
+package cz.abdykili.eshop.service.impl;
 
 import cz.abdykili.eshop.domain.Product;
-import cz.abdykili.eshop.model.ProductDto;
-import cz.abdykili.eshop.payload.ProductRequestDto;
+import cz.abdykili.eshop.model.ProductResponseDto;
+import cz.abdykili.eshop.model.ProductRequestDto;
 import cz.abdykili.eshop.repository.ProductRepository;
+import cz.abdykili.eshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,28 +19,28 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private final ProductRepository productRepository;
 
     @Override
-    public List<ProductDto> findAll(){
+    public List<ProductResponseDto> findAll(){
         return productRepository.findAll().stream()
                 .map(p -> mapToResponse(p))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ProductDto findProduct(Long id){
-        final Product product = productRepository.findProductById(id)
+    public ProductResponseDto findProduct(Long id){
+        final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
 
         return mapToResponse(product);
     }
 
     @Override
-    public ProductDto saveProduct(ProductRequestDto productRequestDto){
+    public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
         Product newProduct = new Product()
                 .setDescription(productRequestDto.getDescription())
                 .setImage(productRequestDto.getImage())
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements ProductService{
 
         final Product savedProduct = productRepository.save(newProduct);
 
-        final ProductDto productResponseDto = new ProductDto()
+        final ProductResponseDto productResponseDto = new ProductResponseDto()
                 .setDescription(savedProduct.getDescription())
                 .setId(savedProduct.getId())
                 .setImage(savedProduct.getImage())
@@ -60,8 +61,8 @@ public class ProductServiceImpl implements ProductService{
         return productResponseDto;
     }
 
-    private ProductDto mapToResponse (Product savedProduct){
-        return new ProductDto()
+    private ProductResponseDto mapToResponse (Product savedProduct){
+        return new ProductResponseDto()
                 .setDescription(savedProduct.getDescription())
                 .setId(savedProduct.getId())
                 .setImage(savedProduct.getImage())
@@ -71,8 +72,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDto updateProduct(ProductRequestDto productRequestDto, Long id){
-        final Product product = productRepository.findProductById(id)
+    public ProductResponseDto updateProduct(ProductRequestDto productRequestDto, Long id){
+        final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
 
         Product productToSave = new Product()
@@ -90,7 +91,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void deleteProduct(Long id){
-        final Product product = productRepository.findProductById(id)
+        final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
         productRepository.deleteById(id);
     }

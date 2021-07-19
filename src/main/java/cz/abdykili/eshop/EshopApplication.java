@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.logging.Logger;
 
 @SpringBootApplication
-public class  EshopApplication {
+public class EshopApplication {
 
 	public static final Logger logger = Logger.getLogger(EshopApplication.class.getName());
 

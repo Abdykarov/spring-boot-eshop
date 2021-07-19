@@ -1,13 +1,12 @@
 package cz.abdykili.eshop.service;
 
 import cz.abdykili.eshop.domain.Product;
-import cz.abdykili.eshop.model.ProductDto;
+import cz.abdykili.eshop.model.ProductResponseDto;
 import cz.abdykili.eshop.repository.ProductRepository;
-import org.junit.jupiter.api.BeforeEach;
+import cz.abdykili.eshop.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +34,7 @@ class ProductServiceTest {
         ));
 
         //act
-        List<ProductDto> returnedList = productService.findAll();
+        List<ProductResponseDto> returnedList = productService.findAll();
 
         //assert
         assertEquals(supposedSize, returnedList.size());
@@ -47,11 +46,11 @@ class ProductServiceTest {
         //arrange
         Product testProduct = new Product();
         testProduct.setId(1L);
-        Mockito.when(productRepository.findProductById(anyLong())).thenReturn(Optional.of(testProduct));
+        Mockito.when(productRepository.findById(anyLong())).thenReturn(Optional.of(testProduct));
 
 
         //act
-        ProductDto returnedProduct = productService.findProduct(2L);
+        ProductResponseDto returnedProduct = productService.findProduct(2L);
         Long returnProductId = returnedProduct.getId();
 
         //assert

@@ -1,11 +1,13 @@
-package cz.abdykili.eshop.payload;
+package cz.abdykili.eshop.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
 @Data
-public class ProductRequestDto {
+@Accessors(chain = true)
+public class ProductResponseDto {
     private Long id;
     private String name;
     private String description;
