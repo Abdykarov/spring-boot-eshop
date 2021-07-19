@@ -1,47 +1,70 @@
 package cz.abdykili.eshop.service;
 
-import cz.abdykili.eshop.model.ProductDto;
-import org.junit.jupiter.api.BeforeEach;
+import cz.abdykili.eshop.domain.Product;
+import cz.abdykili.eshop.model.ProductResponseDto;
+import cz.abdykili.eshop.repository.ProductRepository;
+import cz.abdykili.eshop.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.util.List;  
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+
 
 class ProductServiceTest {
-
-    private ProductService productService;
-
-    @BeforeEach
-    void setUp() {
-        productService = new ProductService();
-    }
+    private ProductRepository productRepository = Mockito.mock(ProductRepository.class);
+    private ProductServiceImpl productService = new ProductServiceImpl(productRepository);
 
     @Test
-    void findAll() {
+    public void findAll_TestArraySize() {
         //arrange
         Integer supposedSize = 3;
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+
+        Mockito.when(productRepository.findAll()).thenReturn(Arrays.asList(
+                product1,
+                product2,
+                product3
+        ));
 
         //act
-        List<ProductDto> returnedList = productService.findAll();
+        List<ProductResponseDto> returnedList = productService.findAll();
 
         //assert
-        assertEquals(supposedSize,returnedList.size());
+        assertEquals(supposedSize, returnedList.size());
 
     }
 
     @Test
-    void findProduct() {
+    void findProduct_TestIdOfTheFoundProduct() {
         //arrange
-        ProductDto testProduct = new ProductDto();
+        Product testProduct = new Product();
         testProduct.setId(1L);
+        Mockito.when(productRepository.findById(anyLong())).thenReturn(Optional.of(testProduct));
+
 
         //act
-        ProductDto returnedProduct = productService.findProduct(1);
+        ProductResponseDto returnedProduct = productService.findProduct(2L);
         Long returnProductId = returnedProduct.getId();
 
         //assert
-        assertEquals(testProduct.getId(), returnProductId);
+        assertEquals(1, returnProductId);
+    }
+
+    @Test
+    public void deleteProduct_TestSizeOfArray(){
+        // TODO Create a deleteMethod test
+    }
+
+    @Test
+    public void updateProduct_TestChangedName(){
+        // TODO Create a updateProudct test
     }
 }
 
