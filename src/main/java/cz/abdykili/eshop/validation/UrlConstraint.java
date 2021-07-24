@@ -5,13 +5,11 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target(ElementType.FIELD)
+@Constraint(validatedBy = UrlValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = NameValidator.class)
-public @interface NameConstraint {
-    String message() default "The name doesnt start with an uppercase letter";
+public @interface UrlConstraint {
+    String message() default "Url doesnt contain any of image extensions";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
-
-

@@ -26,17 +26,4 @@ public class ItaExceptionHandler {
         );
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException e){
-        logger.error(e.getMessage());
-        return new ResponseEntity<>(
-                new ItaResponseException(
-                        e.getMessage(),
-                        e.getHttpStatus(),
-                        e.getClass().getName(),
-                        ZonedDateTime.now(ZoneId.of("Europe/Prague"))
-                ), e.getHttpStatus()
-        );
-    }
-
 }

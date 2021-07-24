@@ -1,4 +1,4 @@
-package cz.abdykili.eshop.api;
+package cz.abdykili.eshop.controller;
 
 
 import cz.abdykili.eshop.model.ProductResponseDto;
