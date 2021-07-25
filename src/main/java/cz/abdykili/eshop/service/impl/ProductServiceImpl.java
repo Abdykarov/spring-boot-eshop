@@ -1,9 +1,7 @@
 package cz.abdykili.eshop.service.impl;
 
 import cz.abdykili.eshop.domain.Product;
-import cz.abdykili.eshop.exception.ItaRequestException;
 import cz.abdykili.eshop.exception.ProductNotFoundException;
-import cz.abdykili.eshop.exception.ValidationException;
 import cz.abdykili.eshop.model.ProductResponseDto;
 import cz.abdykili.eshop.model.ProductRequestDto;
 import cz.abdykili.eshop.repository.ProductRepository;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.math.BigDecimal;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -64,7 +61,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
-        if(validateRequestDto(productRequestDto)){
             Product newProduct = mapToEntity(productRequestDto);
             final Product savedProduct = productRepository.save(newProduct);
             ProductResponseDto productResponseDto = mapToResponse(savedProduct);
@@ -75,28 +71,23 @@ public class ProductServiceImpl implements ProductService {
             }
 
             return productResponseDto;
-        }
-        return null;
     }
 
     @Override
     public ProductResponseDto updateProduct(ProductRequestDto productRequestDto, Long id){
-        if(validateRequestDto(productRequestDto)){
-            final Product product = productRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
-            Product productToSave = mapToEntity(productRequestDto)
-                    .setId(product.getId());
-            final Product updatedProduct = productRepository.save(productToSave);
-            ProductResponseDto productResponseDto = mapToResponse(updatedProduct);
+        final Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
+        Product productToSave = mapToEntity(productRequestDto)
+                .setId(product.getId());
+        final Product updatedProduct = productRepository.save(productToSave);
+        ProductResponseDto productResponseDto = mapToResponse(updatedProduct);
 
-            logger.info("Updating the product with id {}", product.getId());
-            if(logger.isDebugEnabled()){
-                logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
-            }
-
-            return productResponseDto;
+        logger.info("Updating the product with id {}", product.getId());
+        if(logger.isDebugEnabled()) {
+            logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
         }
-        return null;
+
+        return productResponseDto;
     }
 
     @Override
@@ -128,35 +119,5 @@ public class ProductServiceImpl implements ProductService {
                 .setName(savedProduct.getName());
     }
 
-    private boolean validateRequestDto(ProductRequestDto productRequestDto){
-        if(productRequestDto.getName() == ""){
-            throw new ValidationException("Name is empty", HttpStatus.CONFLICT);
-        }
-        if(productRequestDto.getName().length() > 256){
-            throw new ValidationException("Maximum names length is 256 ch, current is " +
-                    productRequestDto.getName().length(), HttpStatus.CONFLICT);
-        }
-        if(productRequestDto.getDescription() == ""){
-            throw new ValidationException("Description is empty", HttpStatus.CONFLICT);
-        }
-        if(productRequestDto.getDescription().length() > 256){
-            throw new ValidationException("Maximum descriptions length is 512 ch, current is " +
-                    productRequestDto.getDescription().length(), HttpStatus.CONFLICT);
-        }
-        if(!(productRequestDto.getPrice().compareTo(BigDecimal.ZERO) > 0) ||
-                productRequestDto.getPrice() == null
-        ){
-            throw new ValidationException("Price must be higher than 0 and mustn't be null",
-                    HttpStatus.CONFLICT);
-        }
-        if(productRequestDto.getStock() < 0){
-            throw new ValidationException("Stock must be positive, current is " +
-                    productRequestDto.getStock(), HttpStatus.CONFLICT);
-        }
-        if(productRequestDto.getImage() == ""){
-            throw new ValidationException("Image is empty", HttpStatus.CONFLICT);
-        }
-        return true;
-    }
 
 }

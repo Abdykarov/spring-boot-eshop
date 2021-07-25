@@ -12,8 +12,4 @@ public class NameValidator implements ConstraintValidator<NameConstraint, String
         return  Character.isUpperCase(s.charAt(0));
     }
 
-    @Override
-    public void initialize(NameConstraint constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
 }

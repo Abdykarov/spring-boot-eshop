@@ -7,6 +7,7 @@ import cz.abdykili.eshop.service.impl.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,12 +32,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto saveProduct(@RequestBody ProductRequestDto productRequestDto){
+    public ProductResponseDto saveProduct(@Valid @RequestBody ProductRequestDto productRequestDto){
         return productService.saveProduct(productRequestDto);
     }
 
     @PutMapping("{id}")
-    public ProductResponseDto updateProduct(@RequestBody ProductRequestDto productRequestDto, @PathVariable("id") Long id){
+    public ProductResponseDto updateProduct(@Valid @RequestBody ProductRequestDto productRequestDto, @PathVariable("id") Long id){
         return productService.updateProduct(productRequestDto, id);
     }
 
