@@ -35,11 +35,7 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
 
         logger.info("Returning {} products from repository", products.size());
-        if(logger.isDebugEnabled()){
-            for(ProductResponseDto product : products){
-                logger.debug("Returning the product {}", product);
-            }
-        }
+        logger.debug("Returning the products {}", products);
 
         return products;
     }
@@ -52,29 +48,31 @@ public class ProductServiceImpl implements ProductService {
         ProductResponseDto responseProduct = mapToResponse(product);
 
         logger.info("Returning the product with id {} from repository", product.getId());
-        if(logger.isDebugEnabled()){
-            logger.debug("Returning the product {}", responseProduct);
-        }
+        logger.debug("Returning the product {}", responseProduct);
+
 
         return responseProduct;
     }
 
     @Override
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
-            Product newProduct = mapToEntity(productRequestDto);
-            final Product savedProduct = productRepository.save(newProduct);
-            ProductResponseDto productResponseDto = mapToResponse(savedProduct);
+        logger.info("Saving a new product");
+        logger.debug("Incoming payload {} ", productRequestDto);
 
-            logger.info("Saving the product with id {}", savedProduct.getId());
-            if(logger.isDebugEnabled()){
-                logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
-            }
+        Product newProduct = mapToEntity(productRequestDto);
+        final Product savedProduct = productRepository.save(newProduct);
+        ProductResponseDto productResponseDto = mapToResponse(savedProduct);
 
-            return productResponseDto;
+        logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
+
+        return productResponseDto;
     }
 
     @Override
     public ProductResponseDto updateProduct(ProductRequestDto productRequestDto, Long id){
+        logger.info("Updating an existing product");
+        logger.debug("Incoming payload {} ", productRequestDto);
+
         final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
         Product productToSave = mapToEntity(productRequestDto)
@@ -82,10 +80,7 @@ public class ProductServiceImpl implements ProductService {
         final Product updatedProduct = productRepository.save(productToSave);
         ProductResponseDto productResponseDto = mapToResponse(updatedProduct);
 
-        logger.info("Updating the product with id {}", product.getId());
-        if(logger.isDebugEnabled()) {
-            logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
-        }
+        logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
 
         return productResponseDto;
     }

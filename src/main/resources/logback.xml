@@ -15,7 +15,7 @@
     <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>application ${bySecond}.log</file>
+        <file>application ${bySecond}l.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>application.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -33,7 +33,7 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger additivity="false" name="cz.abdykili.eshop">
+    <logger level="DEBUG" additivity="false" name="cz.abdykili.eshop">
         <appender-ref ref="FILE"/>
     </logger>
 
