@@ -1,7 +1,5 @@
 package cz.abdykili.eshop.validation;
 
-import cz.abdykili.eshop.domain.Product;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

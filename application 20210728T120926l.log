@@ -1,0 +1,5 @@
+2021-07-28 12:09:26,346 1897 [main] INFO  cz.abdykili.eshop.EshopApplication - Starting EshopApplication using Java 11.0.11 on abdykili with PID 8183 (/home/abdykili/workflow/ita-2021-java/target/classes started by abdykili in /home/abdykili/workflow/ita-2021-java)
+2021-07-28 12:09:26,351 1902 [main] DEBUG cz.abdykili.eshop.EshopApplication - Running with Spring Boot v2.4.8, Spring v5.3.8
+2021-07-28 12:09:26,352 1903 [main] INFO  cz.abdykili.eshop.EshopApplication - No active profile set, falling back to default profiles: default
+2021-07-28 12:09:30,874 6425 [main] INFO  cz.abdykili.eshop.EshopApplication - Started EshopApplication in 5.516 seconds (JVM running for 7.649)
+2021-07-28 12:09:55,885 31436 [http-nio-8080-exec-2] ERROR c.a.e.exception.ItaExceptionHandler - Product with id 150 not found!

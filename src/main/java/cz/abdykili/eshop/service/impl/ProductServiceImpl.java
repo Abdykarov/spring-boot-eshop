@@ -50,49 +50,53 @@ public class ProductServiceImpl implements ProductService {
         logger.info("Returning the product with id {} from repository", product.getId());
         logger.debug("Returning the product {}", responseProduct);
 
-
         return responseProduct;
     }
 
     @Override
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
         logger.info("Saving a new product");
-        logger.debug("Incoming payload {} ", productRequestDto);
+        logger.debug("Saving a new product - Incoming payload {} ", productRequestDto);
 
         Product newProduct = mapToEntity(productRequestDto);
         final Product savedProduct = productRepository.save(newProduct);
         ProductResponseDto productResponseDto = mapToResponse(savedProduct);
 
-        logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
+        logger.debug("Saving a new product - Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
 
         return productResponseDto;
     }
 
     @Override
     public ProductResponseDto updateProduct(ProductRequestDto productRequestDto, Long id){
-        logger.info("Updating an existing product");
-        logger.debug("Incoming payload {} ", productRequestDto);
+        logger.info("Updating an existing product with id {}", id);
+        logger.debug("Updating an existing product with id {} - Incoming payload {} ", id, productRequestDto);
+        if(productRepository.existsById(id)){
 
-        final Product product = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
-        Product productToSave = mapToEntity(productRequestDto)
-                .setId(product.getId());
-        final Product updatedProduct = productRepository.save(productToSave);
-        ProductResponseDto productResponseDto = mapToResponse(updatedProduct);
+            Product productToSave = mapToEntity(productRequestDto)
+                    .setId(id);
 
-        logger.debug("Incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
+            final Product updatedProduct = productRepository.save(productToSave);
+            ProductResponseDto productResponseDto = mapToResponse(updatedProduct);
 
-        return productResponseDto;
+            logger.debug("Updating an existing product | incoming payload {}, outgoing payload {} ", productRequestDto, productResponseDto);
+
+            return productResponseDto;
+        }
+        else{
+            logger.error("Updating an existing product with id {} | Entity with id {} was not found", id, id);
+        }
+        return null;
     }
 
     @Override
     public void deleteProduct(Long id){
-        final Product product = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product with id " + id + " not found!"));
-
-        logger.info("Deleting the product with id {}", product.getId());
-
-        productRepository.deleteById(id);
+        logger.info("Deleting the product with id {}", id);
+        if(productRepository.existsById(id)){
+            productRepository.deleteById(id);
+        }else{
+            logger.error("Deleting the product with id {} | Entity with id {} was not found", id, id);
+        }
     }
 
     private Product mapToEntity(ProductRequestDto productRequestDto){
