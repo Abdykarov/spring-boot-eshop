@@ -3,6 +3,7 @@ package cz.abdykili.eshop.model;
 import cz.abdykili.eshop.validation.NameConstraint;
 import cz.abdykili.eshop.validation.UrlConstraint;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.boot.context.properties.bind.Name;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Data
+@Accessors(chain = true)
 public class ProductRequestDto {
     private Long id;
     @NotBlank
