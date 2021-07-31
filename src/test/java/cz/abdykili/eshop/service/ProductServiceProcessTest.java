@@ -30,6 +30,7 @@ public class ProductServiceProcessTest implements WithAssertions {
 
         //act
         int actualFilmsCount = productService.findAll().size();
+        productService.saveSeveralTimes();
 
         //assert
         SoftAssertions.assertSoftly(softAssertions -> {
