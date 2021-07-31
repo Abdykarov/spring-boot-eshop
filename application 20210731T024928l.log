@@ -1,4 +1,0 @@
-2021-07-31 02:49:28,734 346  [main] INFO  c.a.e.s.impl.ProductServiceImpl - Returning 3 products from repository
-2021-07-31 02:49:28,781 393  [main] DEBUG c.a.e.s.impl.ProductServiceImpl - Returning the products [null, null, null]
-2021-07-31 02:49:28,834 446  [main] INFO  c.a.e.s.impl.ProductServiceImpl - Returning the product with id 1 from repository
-2021-07-31 02:49:28,835 447  [main] DEBUG c.a.e.s.impl.ProductServiceImpl - Returning the product null

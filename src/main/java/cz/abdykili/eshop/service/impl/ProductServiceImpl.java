@@ -9,20 +9,13 @@ import cz.abdykili.eshop.repository.ProductRepository;
 import cz.abdykili.eshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
-import static cz.abdykili.eshop.EshopApplication.logger;
 
 /**
  * Service for working with the products
@@ -95,21 +88,27 @@ public class ProductServiceImpl implements ProductService {
         }
         else{
             log.error("Updating an existing product with id {} | Entity with id {} was not found", id, id);
+            throw new ProductNotFoundException("Product was not found with id " + id, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
     @Override
     @Transactional
-    public void deleteProduct(Long id){
+    public void deleteProduct(Long id) throws ProductNotFoundException{
         log.info("Deleting the product with id {}", id);
         if(productRepository.existsById(id)){
             productRepository.deleteById(id);
-        }else{
+        }
+        else if(productRepository.existsById(id) == false){
             log.error("Deleting the product with id {} | Entity with id {} was not found", id, id);
+            throw new ProductNotFoundException("Product was not found with id " + id, HttpStatus.NOT_FOUND);
         }
     }
 
+    /**
+     * Delete this method before merging to the main branch
+     * For educational purposes only
+     */
     @Transactional
     public void saveSeveralTimes(){
         Product productGood = new Product()
