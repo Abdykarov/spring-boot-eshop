@@ -1,8 +1,0 @@
-2021-07-30 22:19:35,031 3577 [main] INFO  c.a.eshop.EshopApplicationTests - Starting EshopApplicationTests using Java 11.0.12 on abdykili with PID 12665 (started by abdykili in /home/abdykili/workflow/ita-2021-java)
-2021-07-30 22:19:35,032 3578 [main] DEBUG c.a.eshop.EshopApplicationTests - Running with Spring Boot v2.5.1, Spring v5.3.8
-2021-07-30 22:19:35,036 3582 [main] INFO  c.a.eshop.EshopApplicationTests - No active profile set, falling back to default profiles: default
-2021-07-30 22:19:45,397 13943 [main] INFO  c.a.eshop.EshopApplicationTests - Started EshopApplicationTests in 11.433 seconds (JVM running for 17.804)
-2021-07-30 22:19:46,009 14555 [main] INFO  c.a.e.s.impl.ProductServiceImpl - Returning 3 products from repository
-2021-07-30 22:19:46,010 14556 [main] DEBUG c.a.e.s.impl.ProductServiceImpl - Returning the products [ProductResponseDto(id=null, name=null, description=null, price=null, stock=null, image=null), ProductResponseDto(id=null, name=null, description=null, price=null, stock=null, image=null), ProductResponseDto(id=null, name=null, description=null, price=null, stock=null, image=null)]
-2021-07-30 22:19:46,091 14637 [main] INFO  c.a.e.s.impl.ProductServiceImpl - Returning the product with id 1 from repository
-2021-07-30 22:19:46,091 14637 [main] DEBUG c.a.e.s.impl.ProductServiceImpl - Returning the product ProductResponseDto(id=1, name=null, description=null, price=null, stock=null, image=null)

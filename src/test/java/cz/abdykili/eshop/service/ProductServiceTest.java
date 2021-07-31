@@ -1,6 +1,7 @@
 package cz.abdykili.eshop.service;
 
 import cz.abdykili.eshop.domain.Product;
+import cz.abdykili.eshop.mapper.ProductMapper;
 import cz.abdykili.eshop.model.ProductResponseDto;
 import cz.abdykili.eshop.repository.ProductRepository;
 import cz.abdykili.eshop.service.impl.ProductServiceImpl;
@@ -16,8 +17,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 
 
 class ProductServiceTest {
+    private ProductMapper productMapper = Mockito.mock(ProductMapper.class);
     private ProductRepository productRepository = Mockito.mock(ProductRepository.class);
-    private ProductServiceImpl productService = new ProductServiceImpl(productRepository);
+    private ProductServiceImpl productService = new ProductServiceImpl(productMapper,productRepository);
 
     @Test
     public void findAll_TestArraySize() {

@@ -41,6 +41,11 @@ public class ProductController {
         return productService.updateProduct(productRequestDto, id);
     }
 
+    @PostMapping("/test")
+    public void saveSeveralProducts(){
+        productService.saveSeveralTimes();
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable("id") Long id){

@@ -1,0 +1,4 @@
+2021-07-31 02:13:24,343 1637 [main] INFO  cz.abdykili.eshop.EshopApplication - Starting EshopApplication using Java 11.0.12 on abdykili with PID 3122 (/home/abdykili/workflow/ita-2021-java/target/classes started by abdykili in /home/abdykili/workflow/ita-2021-java)
+2021-07-31 02:13:24,344 1638 [main] DEBUG cz.abdykili.eshop.EshopApplication - Running with Spring Boot v2.5.1, Spring v5.3.8
+2021-07-31 02:13:24,345 1639 [main] INFO  cz.abdykili.eshop.EshopApplication - No active profile set, falling back to default profiles: default
+2021-07-31 02:13:29,157 6451 [main] INFO  cz.abdykili.eshop.EshopApplication - Started EshopApplication in 5.482 seconds (JVM running for 7.78)
