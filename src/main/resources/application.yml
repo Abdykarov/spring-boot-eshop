@@ -1,0 +1,39 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:postgresql://localhost:1337/postgres-ita
+    username: abdykili
+    password: 281001ilyas
+  application:
+    name: eshop-service
+
+app:
+  aws:
+    s3:
+      accessKey: AKIA5IJARXAG2CSJ4GBW
+      secretKey: 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
+      region: eu-central-1
+      bucketName: abdykili-spring-s3
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ec2-35-158-57-169.eu-central-1.compute.amazonaws.com:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      enabled: true
+    metrics:
+      enabled: true

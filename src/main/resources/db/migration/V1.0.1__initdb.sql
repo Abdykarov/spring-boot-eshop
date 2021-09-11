@@ -1,0 +1,2 @@
+INSERT INTO genre_entity (id,created_at,modified_at, description, name) VALUES (2,current_date,null,'SS','Drama');
+INSERT INTO author_entity (id,created_at,modified_at, bio, name) VALUES (2,current_date,null,'SS','Actor2');
